@@ -95,12 +95,15 @@ public class LogicalTemplateParserService {
 			currentAttribute = new Attribute();
 			setSlotInfo(currentAttribute, ctx.templateremoveslot());
 			final ExpressionTemplateParser.AttributenameContext attributename = ctx.attributename();
+			
 			if (attributename.conceptreference().conceptid() == null) {
-				throw unsupported("Attribute name other than conceptId");
+				if (attributename.conceptreference().templatereplaceslot() != null) {
+					currentAttribute.setSlotName(attributename.conceptreference().templatereplaceslot().getText());
+				}
+			} else {
+				currentAttribute.setType(attributename.conceptreference().conceptid().getText());
 			}
-
-			currentAttribute.setType(attributename.conceptreference().conceptid().getText());
-
+	
 			final ExpressionTemplateParser.ConceptreferenceContext valueConceptReference = ctx.attributevalue().expressionvalue().conceptreference();
 			if (valueConceptReference.conceptid() != null) {
 				currentAttribute.setValue(valueConceptReference.conceptid().getText());
