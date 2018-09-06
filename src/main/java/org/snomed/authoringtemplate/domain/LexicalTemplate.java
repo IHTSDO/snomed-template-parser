@@ -1,5 +1,6 @@
 package org.snomed.authoringtemplate.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LexicalTemplate {
@@ -8,6 +9,7 @@ public class LexicalTemplate {
 	private String displayName;
 	private String takeFSNFromSlot;
 	private List<String> removeParts;
+	private List<String> removeFromTermTemplateWhenSlotAbsent;
 
 	public LexicalTemplate() {
 	}
@@ -17,6 +19,7 @@ public class LexicalTemplate {
 		this.displayName = displayName;
 		this.takeFSNFromSlot = takeFSNFromSlot;
 		this.removeParts = removeParts;
+		this.removeFromTermTemplateWhenSlotAbsent = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -50,6 +53,14 @@ public class LexicalTemplate {
 	public void setRemoveParts(List<String> removeParts) {
 		this.removeParts = removeParts;
 	}
+	
+	public List<String> getRemoveFromTermTemplateWhenSlotAbsent() {
+		return removeFromTermTemplateWhenSlotAbsent;
+	}
+
+	public void setRemoveFromTermTemplateWhenSlotAbsent(List<String> removeFromTermTemplateWhenSlotAbsent) {
+		this.removeFromTermTemplateWhenSlotAbsent = removeFromTermTemplateWhenSlotAbsent;
+	}
 
 	@Override
 	public String toString() {
@@ -62,7 +73,9 @@ public class LexicalTemplate {
 		if (takeFSNFromSlot != null)
 			builder.append("takeFSNFromSlot=").append(takeFSNFromSlot).append(", ");
 		if (removeParts != null)
-			builder.append("removeParts=").append(removeParts);
+			builder.append("removeParts=").append(removeParts).append(", ");
+		if (removeFromTermTemplateWhenSlotAbsent != null)
+			builder.append("removeFromTermTemplateWhenSlotAbsent=").append(removeFromTermTemplateWhenSlotAbsent);
 		builder.append("]");
 		return builder.toString();
 	}

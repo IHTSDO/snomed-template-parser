@@ -98,7 +98,7 @@ public class LogicalTemplateParserService {
 			
 			if (attributename.conceptreference().conceptid() == null) {
 				if (attributename.conceptreference().templatereplaceslot() != null) {
-					currentAttribute.setSlotName(attributename.conceptreference().templatereplaceslot().getText());
+					currentAttribute.setType(attributename.conceptreference().templatereplaceslot().getText());
 				}
 			} else {
 				currentAttribute.setType(attributename.conceptreference().conceptid().getText());
