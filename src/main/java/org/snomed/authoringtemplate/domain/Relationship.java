@@ -13,6 +13,8 @@ public class Relationship {
 	private String cardinalityMax;
 
 	public Relationship() {
+		cardinalityMin = "1";
+		cardinalityMax = "*";
 	}
 
 	public String getCharacteristicType() {
