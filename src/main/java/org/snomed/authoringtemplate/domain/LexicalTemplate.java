@@ -3,13 +3,14 @@ package org.snomed.authoringtemplate.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class LexicalTemplate {
 
 	private String name;
 	private String displayName;
 	private String takeFSNFromSlot;
 	private List<String> removeParts;
-	private List<String> removeFromTermTemplateWhenSlotAbsent;
+	private List<ReplacementRule> termReplacements;
 
 	public LexicalTemplate() {
 	}
@@ -19,7 +20,7 @@ public class LexicalTemplate {
 		this.displayName = displayName;
 		this.takeFSNFromSlot = takeFSNFromSlot;
 		this.removeParts = removeParts;
-		this.removeFromTermTemplateWhenSlotAbsent = new ArrayList<>();
+		this.termReplacements = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -54,12 +55,12 @@ public class LexicalTemplate {
 		this.removeParts = removeParts;
 	}
 	
-	public List<String> getRemoveFromTermTemplateWhenSlotAbsent() {
-		return removeFromTermTemplateWhenSlotAbsent;
+	public List<ReplacementRule> getTermReplacements() {
+		return termReplacements;
 	}
 
-	public void setRemoveFromTermTemplateWhenSlotAbsent(List<String> removeFromTermTemplateWhenSlotAbsent) {
-		this.removeFromTermTemplateWhenSlotAbsent = removeFromTermTemplateWhenSlotAbsent;
+	public void setTermReplacements(List<ReplacementRule> termReplacements) {
+		this.termReplacements = termReplacements;
 	}
 
 	@Override
@@ -74,9 +75,62 @@ public class LexicalTemplate {
 			builder.append("takeFSNFromSlot=").append(takeFSNFromSlot).append(", ");
 		if (removeParts != null)
 			builder.append("removeParts=").append(removeParts).append(", ");
-		if (removeFromTermTemplateWhenSlotAbsent != null)
-			builder.append("removeFromTermTemplateWhenSlotAbsent=").append(removeFromTermTemplateWhenSlotAbsent);
+		if (termReplacements != null)
+			builder.append("termReplacements=").append(termReplacements);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	public static class ReplacementRule {
+		
+		private String existingTerm;
+		
+  		private String replacement;
+  		
+  		private boolean slotAbsent;
+  		
+  		private List<String> slotValues;
+
+  		public ReplacementRule() {
+			
+		}
+		
+		public ReplacementRule(String existingTerm, String replacement) {
+			this.existingTerm = existingTerm;
+			this.replacement = replacement;
+		}
+
+		public String getExistingTerm() {
+			return existingTerm;
+		}
+
+		public void setExistingTerm(String existingTerm) {
+			this.existingTerm = existingTerm;
+		}
+
+		public String getReplacement() {
+			return replacement;
+		}
+
+		public void setReplacement(String replacement) {
+			this.replacement = replacement;
+		}
+
+		public boolean isSlotAbsent() {
+			return slotAbsent;
+		}
+
+		public void setSlotAbsent(boolean isSlotAbsent) {
+			this.slotAbsent = isSlotAbsent;
+		}
+
+		public List<String> getSlotValues() {
+			return slotValues;
+		}
+
+		public void setSlotValues(List<String> slotValues) {
+			this.slotValues = slotValues;
+		}
+	}
+	
 }
