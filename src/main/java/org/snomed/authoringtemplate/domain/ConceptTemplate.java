@@ -5,12 +5,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({"name", "domain", "focusConcept", "version", "logicalTemplate", "lexicalTemplate", "conceptOutline"})
+@JsonPropertyOrder({"name", "domain", "documentation", "focusConcept", "version", "logicalTemplate", "lexicalTemplate", "conceptOutline"})
 public class ConceptTemplate {
 
 	private String name;
 	private String domain;
 	private String focusConcept;
+	private String documentation;
 	private int version;
 	private String logicalTemplate;
 	private List<LexicalTemplate> lexicalTemplates;
@@ -93,5 +94,13 @@ public class ConceptTemplate {
 
 	public void setConceptOutline(ConceptOutline conceptOutline) {
 		this.conceptOutline = conceptOutline;
+	}
+
+	public String getDocumentation() {
+		return documentation;
+	}
+
+	public void setDocumentation(String documentation) {
+		this.documentation = documentation;
 	}
 }
