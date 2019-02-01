@@ -58,16 +58,16 @@ public class AttributeGroup implements HasCardinality {
 			builder.append("cardinalityMin=").append(cardinalityMin).append(", ");
 		if (cardinalityMax != null)
 			builder.append("cardinalityMax=").append(cardinalityMax);
-		builder.append("]");
+		builder.append("] ");
 		return builder.toString();
 	}
 	
 	@Override
 	public String toString() {
-		return (cardinalityMin == null? "": "[[~" + cardinalityMin + ".." + cardinalityMax + "]]") +
-				"{" + attributes.stream()
+		return (cardinalityMin == null? "": "[[~" + cardinalityMin + ".." + cardinalityMax + "]] ") +
+				"{ " + attributes.stream()
 				.map(attribute -> attribute.toString())
 				.collect (Collectors.joining(", ")) 
-				+ "}";
+				+ " }";
 	}
 }

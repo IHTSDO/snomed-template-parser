@@ -91,7 +91,7 @@ public class Attribute implements HasCardinality {
 	
 	@Override
 	public String toString() {
-		return (cardinalityMin == null ? "": "[[~" + cardinalityMin + ".." + cardinalityMax + "]]")
+		return (cardinalityMin == null ? "": "[[~" + cardinalityMin + ".." + cardinalityMax + "]] ")
 				+ getType() + " = "
 				+ (getValue() == null ? rangeToString() : getValue() );
 	}
