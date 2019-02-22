@@ -9,6 +9,12 @@ public class AttributeGroup implements HasCardinality {
 	private List<Attribute> attributes;
 	private String cardinalityMin;  
 	private String cardinalityMax;
+	private Integer groupId;
+	
+	public AttributeGroup(int groupId) {
+		this();
+		this.groupId = groupId;
+	}
 
 	public AttributeGroup() {
 		attributes = new ArrayList<>();
@@ -69,5 +75,13 @@ public class AttributeGroup implements HasCardinality {
 				.map(attribute -> attribute.toString())
 				.collect (Collectors.joining(", ")) 
 				+ " }";
+	}
+
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
 	}
 }
