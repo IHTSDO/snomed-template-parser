@@ -1,18 +1,21 @@
 package org.snomed.authoringtemplate.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class ConceptOutline {
 
 	private String moduleId;
 	private DefinitionStatus definitionStatus;
-	private List<Relationship> relationships;
+	private Set<Axiom> classAxioms;
 	private List<Description> descriptions;
 
 	public ConceptOutline() {
 		definitionStatus = DefinitionStatus.FULLY_DEFINED;
-		relationships = new ArrayList<>();
+		classAxioms = new HashSet<Axiom>();
 		descriptions = new ArrayList<>();
 	}
 
@@ -24,10 +27,6 @@ public class ConceptOutline {
 	public ConceptOutline addDescription(Description description) {
 		descriptions.add(description);
 		return this;
-	}
-
-	public void addRelationship(Relationship relationship) {
-		relationships.add(relationship);
 	}
 
 	public String getModuleId() {
@@ -47,19 +46,41 @@ public class ConceptOutline {
 		this.definitionStatus = definitionStatus;
 	}
 
-	public List<Relationship> getRelationships() {
-		return relationships;
-	}
-
-	public void setRelationships(List<Relationship> relationships) {
-		this.relationships = relationships;
-	}
-
 	public List<Description> getDescriptions() {
 		return descriptions;
 	}
 
 	public void setDescriptions(List<Description> descriptions) {
 		this.descriptions = descriptions;
+	}
+
+	public ConceptOutline addAxiom(Axiom axiom) {
+		classAxioms.add(axiom);
+		return this;
+	}
+	
+	public Set<Axiom> getClassAxioms() {
+		return classAxioms;
+	}
+
+	public void setClassAxioms(Set<Axiom> classAxioms) {
+		this.classAxioms = classAxioms;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ConceptOutline that = (ConceptOutline) o;
+		return Objects.equals(moduleId, that.moduleId) &&
+				definitionStatus == that.definitionStatus &&
+				Objects.equals(classAxioms, that.classAxioms) &&
+				Objects.equals(descriptions, that.descriptions);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(moduleId, definitionStatus, classAxioms, descriptions);
 	}
 }
