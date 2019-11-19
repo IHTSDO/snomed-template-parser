@@ -2,6 +2,7 @@ package org.snomed.authoringtemplate.domain.logical;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LogicalTemplate {
 
@@ -37,5 +38,25 @@ public class LogicalTemplate {
 
 	public List<AttributeGroup> getAttributeGroups() {
 		return attributeGroups;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(String.join(",", focusConcepts));
+		sb.append(": ");
+		
+		sb.append(ungroupedAttributes.stream()
+		.map(a -> a.toString())
+		.collect(Collectors.joining(",")));
+		
+		boolean hasPrevious = ungroupedAttributes.size() > 0;
+		for (AttributeGroup g : attributeGroups) {
+			if (hasPrevious) {
+				sb.append(", \n");
+			}
+			sb.append(g.toString());
+		}
+		return sb.toString();
 	}
 }
