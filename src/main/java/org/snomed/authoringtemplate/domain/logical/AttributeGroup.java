@@ -86,6 +86,10 @@ public class AttributeGroup implements HasCardinality {
 	}
 
 	public boolean isGrouped() {
-		return this.groupId.intValue() > 0;
+		if (this.groupId == null) {
+			return false;
+		} else {
+			return this.groupId.intValue() > 0;
+		}
 	}
 }
