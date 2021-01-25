@@ -94,14 +94,32 @@ public class LogicalTemplateParserService {
 		public void enterAttribute(ExpressionTemplateParser.AttributeContext ctx) {
 			currentAttribute = new Attribute();
 			setSlotInfo(currentAttribute, ctx.templateremoveslot());
-			final ExpressionTemplateParser.AttributenameContext attributename = ctx.attributename();
+			final ExpressionTemplateParser.AttributenameContext typeConceptReference = ctx.attributename();
 			
-			if (attributename.conceptreference().conceptid() == null) {
-				if (attributename.conceptreference().templatereplaceslot() != null) {
-					currentAttribute.setType(attributename.conceptreference().templatereplaceslot().getText());
-				}
+			if (typeConceptReference.conceptreference().conceptid() != null) {
+				currentAttribute.setType(typeConceptReference.conceptreference().conceptid().getText());
 			} else {
-				currentAttribute.setType(attributename.conceptreference().conceptid().getText());
+				final ExpressionTemplateParser.TemplatereplaceslotContext replaceSlot = typeConceptReference.conceptreference().templatereplaceslot();
+				if (replaceSlot.replaceinfo() != null) {
+					final String replaceFlag = replaceSlot.replaceinfo().replaceflag().getText();
+					if (!"id".equals(replaceFlag)) {
+						throw new UnsupportedOperationException("Replace flag of type '" + replaceFlag + "' are not supported. Only replacement flags of type 'id' are supported.");
+					}
+					final ExpressionTemplateParser.ExpressionconstrainttemplateContext ecl = replaceSlot.replaceinfo().expressionconstrainttemplate();
+					if (ecl != null) {
+						currentAttribute.setTypeAllowableRangeECL(ecl.getText());
+					}
+
+					final ExpressionTemplateParser.TemplateslotinfoContext slotInfo = replaceSlot.templateslotinfo();
+					if (slotInfo != null) {
+						if (slotInfo.templateslotname() != null) {
+							currentAttribute.setTypeSlotName(slotInfo.templateslotname().templatestring().getText());
+						}
+						if (slotInfo.templateslotreference() != null) {
+							currentAttribute.setTypeSlotReference(slotInfo.templateslotreference().templatestring().getText());
+						}
+					}
+				}
 			}
 	
 			final ExpressionTemplateParser.ConceptreferenceContext valueConceptReference = ctx.attributevalue().expressionvalue().conceptreference();
@@ -116,16 +134,16 @@ public class LogicalTemplateParserService {
 					}
 					final ExpressionTemplateParser.ExpressionconstrainttemplateContext ecl = replaceSlot.replaceinfo().expressionconstrainttemplate();
 					if (ecl != null) {
-						currentAttribute.setAllowableRangeECL(ecl.getText());
+						currentAttribute.setValueAllowableRangeECL(ecl.getText());
 					}
 
 					final ExpressionTemplateParser.TemplateslotinfoContext slotInfo = replaceSlot.templateslotinfo();
 					if (slotInfo != null) {
 						if (slotInfo.templateslotname() != null) {
-							currentAttribute.setSlotName(slotInfo.templateslotname().templatestring().getText());
+							currentAttribute.setValueSlotName(slotInfo.templateslotname().templatestring().getText());
 						}
 						if (slotInfo.templateslotreference() != null) {
-							currentAttribute.setSlotReference(slotInfo.templateslotreference().templatestring().getText());
+							currentAttribute.setValueSlotReference(slotInfo.templateslotreference().templatestring().getText());
 						}
 					}
 				}
@@ -148,10 +166,6 @@ public class LogicalTemplateParserService {
 					}
 				}
 			}
-		}
-
-		private UnsupportedOperationException unsupported(String message) {
-			return new UnsupportedOperationException(message + " is not supported at the moment.");
 		}
 
 		public LogicalTemplate getTemplate() {

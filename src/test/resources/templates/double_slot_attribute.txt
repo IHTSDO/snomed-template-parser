@@ -1,0 +1,3 @@
+64572001 |Disease (disorder)|: [[~0..1]] { 
+  [[~0..1]] [[ +id (<< 726633004 |Temporally related to (attribute)|) @timeType ]] = [[ +id (< 404684003 |Clinical finding (finding)|) @temporallyRelatedTo ]]
+}

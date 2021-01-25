@@ -44,8 +44,8 @@ public class LogicalTemplateParserServiceTest {
 		Assert.assertEquals(null, attributes.get(0).getCardinalityMax());
 
 		Assert.assertEquals("405813007", attributes.get(1).getType());
-		Assert.assertEquals("<< 442083009 |Anatomical or acquired body structure|", attributes.get(1).getAllowableRangeECL());
-		Assert.assertEquals("slotX", attributes.get(1).getSlotName());
+		Assert.assertEquals("<< 442083009 |Anatomical or acquired body structure|", attributes.get(1).getValueAllowableRangeECL());
+		Assert.assertEquals("slotX", attributes.get(1).getValueSlotName());
 		Assert.assertEquals("1", attributes.get(1).getCardinalityMin());
 		Assert.assertEquals("1", attributes.get(1).getCardinalityMax());
 	}
@@ -75,8 +75,8 @@ public class LogicalTemplateParserServiceTest {
 		Assert.assertEquals(null, attributes.get(0).getCardinalityMax());
 
 		Assert.assertEquals("405813007", attributes.get(1).getType());
-		Assert.assertEquals("<< 442083009 |Anatomical or acquired body structure|", attributes.get(1).getAllowableRangeECL());
-		Assert.assertEquals("procSite", attributes.get(1).getSlotName());
+		Assert.assertEquals("<< 442083009 |Anatomical or acquired body structure|", attributes.get(1).getValueAllowableRangeECL());
+		Assert.assertEquals("procSite", attributes.get(1).getValueSlotName());
 		Assert.assertEquals("1", attributes.get(1).getCardinalityMin());
 		Assert.assertEquals("1", attributes.get(1).getCardinalityMax());
 
@@ -98,9 +98,9 @@ public class LogicalTemplateParserServiceTest {
 		Assert.assertEquals(null, attributes.get(0).getCardinalityMax());
 
 		Assert.assertEquals("405813007", attributes.get(1).getType());
-		Assert.assertEquals(null, attributes.get(1).getAllowableRangeECL());
-		Assert.assertEquals(null, attributes.get(1).getSlotName());
-		Assert.assertEquals("procSite", attributes.get(1).getSlotReference());
+		Assert.assertEquals(null, attributes.get(1).getValueAllowableRangeECL());
+		Assert.assertEquals(null, attributes.get(1).getValueSlotName());
+		Assert.assertEquals("procSite", attributes.get(1).getValueSlotReference());
 		Assert.assertEquals("1", attributes.get(1).getCardinalityMin());
 		Assert.assertEquals("1", attributes.get(1).getCardinalityMax());
 
@@ -116,5 +116,35 @@ public class LogicalTemplateParserServiceTest {
 		Assert.assertEquals(2, template.getFocusConcepts().size());
 		Assert.assertEquals("420134006", template.getFocusConcepts().get(0));
 		Assert.assertEquals("473011001", template.getFocusConcepts().get(1));
+	}
+	
+	@Test
+	public void testParseTemplateDoubleSlotAttribute() throws Exception {
+		final InputStream templateStream = getClass().getResourceAsStream("/templates/double_slot_attribute.txt");
+		Assert.assertNotNull("Found template stream resource", templateStream);
+		final LogicalTemplate template = service.parseTemplate(templateStream);
+		Assert.assertNotNull(template);
+
+		Assert.assertEquals(1, template.getFocusConcepts().size());
+		Assert.assertEquals("64572001", template.getFocusConcepts().get(0));
+
+		Assert.assertEquals(1, template.getAttributeGroups().size());
+		final AttributeGroup attributeGroup = template.getAttributeGroups().get(0);
+		Assert.assertEquals("0", attributeGroup.getCardinalityMin());
+		Assert.assertEquals("1", attributeGroup.getCardinalityMax());
+
+		final List<Attribute> attributes = attributeGroup.getAttributes();
+		Assert.assertEquals(1, attributes.size());
+
+		Assert.assertEquals("0", attributes.get(0).getCardinalityMin());
+		Assert.assertEquals("1", attributes.get(0).getCardinalityMax());
+
+		Assert.assertNull(attributes.get(0).getType());
+		Assert.assertEquals("<< 726633004 |Temporally related to (attribute)|", attributes.get(0).getTypeAllowableRangeECL());
+		Assert.assertEquals("timeType", attributes.get(0).getTypeSlotName());
+		
+		Assert.assertNull(attributes.get(0).getValue());
+		Assert.assertEquals("< 404684003 |Clinical finding (finding)|", attributes.get(0).getValueAllowableRangeECL());
+		Assert.assertEquals("temporallyRelatedTo", attributes.get(0).getValueSlotName());
 	}
 }
