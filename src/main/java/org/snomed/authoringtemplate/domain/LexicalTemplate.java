@@ -9,6 +9,7 @@ public class LexicalTemplate {
 	private String name;
 	private String displayName;
 	private String takeFSNFromSlot;
+	private Integer order;
 	private List<String> removeParts;
 	private List<ReplacementRule> termReplacements;
 
@@ -45,6 +46,14 @@ public class LexicalTemplate {
 
 	public void setTakeFSNFromSlot(String takeFSNFromSlot) {
 		this.takeFSNFromSlot = takeFSNFromSlot;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+
+	public Integer getOrder() {
+		return order;
 	}
 
 	public List<String> getRemoveParts() {
@@ -88,7 +97,9 @@ public class LexicalTemplate {
   		private String replacement;
   		
   		private boolean slotAbsent;
-  		
+
+  		private String slotTermStartsWith;
+
   		private List<String> slotValues;
 
   		public ReplacementRule() {
@@ -130,6 +141,14 @@ public class LexicalTemplate {
 
 		public void setSlotValues(List<String> slotValues) {
 			this.slotValues = slotValues;
+		}
+
+		public void setSlotTermStartsWith(String slotTermStartsWith) {
+			this.slotTermStartsWith = slotTermStartsWith;
+		}
+
+		public String getSlotTermStartsWith() {
+			return slotTermStartsWith;
 		}
 	}
 	
