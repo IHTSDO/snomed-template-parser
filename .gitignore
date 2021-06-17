@@ -3,3 +3,6 @@
 .project
 .settings
 /.idea/
+
+#File to be used in LogicalTemplateSyntaxTest:parseTemplate_ShouldReturnTemplate.
+src/test/resources/templates/.wip.txt
