@@ -72,7 +72,7 @@ public class AttributeGroup implements HasCardinality {
 	public String toString() {
 		return (cardinalityMin == null? "": "[[~" + cardinalityMin + ".." + cardinalityMax + "]] ") +
 				"{ " + attributes.stream()
-				.map(attribute -> attribute.toString())
+				.map(Attribute::toString)
 				.collect (Collectors.joining(", ")) 
 				+ " }";
 	}
@@ -89,7 +89,7 @@ public class AttributeGroup implements HasCardinality {
 		if (this.groupId == null) {
 			return false;
 		} else {
-			return this.groupId.intValue() > 0;
+			return this.groupId > 0;
 		}
 	}
 }

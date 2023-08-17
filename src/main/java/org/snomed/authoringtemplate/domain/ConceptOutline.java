@@ -15,7 +15,7 @@ public class ConceptOutline {
 
 	public ConceptOutline() {
 		definitionStatus = DefinitionStatus.FULLY_DEFINED;
-		classAxioms = new HashSet<Axiom>();
+		classAxioms = new HashSet<>();
 		descriptions = new ArrayList<>();
 	}
 

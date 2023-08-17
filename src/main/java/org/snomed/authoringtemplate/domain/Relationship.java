@@ -4,7 +4,7 @@ import org.springframework.beans.BeanUtils;
 
 public class Relationship {
 
-	private String characteristicType = "STATED_RELATIONSHIP";
+	private final String characteristicType = "STATED_RELATIONSHIP";
 	private int groupId;
 	private ConceptMini type;
 	private ConceptMini target;

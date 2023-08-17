@@ -64,7 +64,6 @@ public class LogicalTemplateParserService {
 
 		private LogicalTemplate template;
 		private AttributeGroup currentAttributeGroup;
-		private Attribute currentAttribute;
 
 		@Override
 		public void enterExpressiontemplate(ExpressionTemplateParser.ExpressiontemplateContext ctx) {
@@ -92,7 +91,7 @@ public class LogicalTemplateParserService {
 
 		@Override
 		public void enterAttribute(ExpressionTemplateParser.AttributeContext ctx) {
-			currentAttribute = new Attribute();
+			Attribute currentAttribute = new Attribute();
 			setSlotInfo(currentAttribute, ctx.templateremoveslot());
 			final ExpressionTemplateParser.AttributenameContext typeConceptReference = ctx.attributename();
 			

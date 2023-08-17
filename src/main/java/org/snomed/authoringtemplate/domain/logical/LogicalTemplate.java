@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 public class LogicalTemplate {
 
-	private List<String> focusConcepts;
-	private List<Attribute> ungroupedAttributes;
-	private List<AttributeGroup> attributeGroups;
+	private final List<String> focusConcepts;
+	private final List<Attribute> ungroupedAttributes;
+	private final List<AttributeGroup> attributeGroups;
 
 	public LogicalTemplate() {
 		focusConcepts = new ArrayList<>();
@@ -42,15 +42,15 @@ public class LogicalTemplate {
 	
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(String.join(",", focusConcepts));
 		sb.append(": ");
 		
 		sb.append(ungroupedAttributes.stream()
-		.map(a -> a.toString())
+		.map(Attribute::toString)
 		.collect(Collectors.joining(",")));
 		
-		boolean hasPrevious = ungroupedAttributes.size() > 0;
+		boolean hasPrevious = !ungroupedAttributes.isEmpty();
 		for (AttributeGroup g : attributeGroups) {
 			if (hasPrevious) {
 				sb.append(", \n");
