@@ -1,6 +1,5 @@
-// Generated from ExpressionTemplate.txt by ANTLR 4.5.3
+// Generated from parser-generation/ExpressionTemplate.txt by ANTLR 4.13.2
 package org.snomed.authoringtemplate.service.generatedlogicalparser;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

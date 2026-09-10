@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.v4.runtime.ANTLRErrorStrategy;
-import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -28,14 +29,14 @@ public class LogicalTemplateParserService {
 	private static final Logger logger = LoggerFactory.getLogger(LogicalTemplateParserService.class);
 
 	public LogicalTemplate parseTemplate(String templateString) throws IOException {
-		return doParseTemplate(new ANTLRInputStream(templateString));
+		return doParseTemplate(CharStreams.fromString(templateString));
 	}
 
 	public LogicalTemplate parseTemplate(InputStream templateStream) throws IOException {
-		return doParseTemplate(new ANTLRInputStream(templateStream));
+		return doParseTemplate(CharStreams.fromStream(templateStream));
 	}
 
-	private LogicalTemplate doParseTemplate(ANTLRInputStream input) throws IOException {
+	private LogicalTemplate doParseTemplate(CharStream input) throws IOException {
 		final ExpressionTemplateLexer lexer = new ExpressionTemplateLexer(input);
 		final CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 		final ExpressionTemplateParser parser = new ExpressionTemplateParser(tokenStream);

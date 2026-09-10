@@ -13,11 +13,12 @@ grammar ExpressionTemplate;
 ```
 
 # Generate the ANTLR Parser
-Download the ANTLR java program from http://www.antlr.org/download/antlr-4.5.3-complete.jar
+Download the ANTLR java program from https://www.antlr.org/download/antlr-4.13.2-complete.jar
 
-Use the program to generate the Expression Template parser:
+Use the program to generate the Expression Template parser (from the repo root):
 ```
-java -jar antlr-4.5.3-complete.jar ExpressionTemplate.txt -o parser-files
+java -jar antlr-4.13.2-complete.jar -package org.snomed.authoringtemplate.service.generatedlogicalparser -listener -no-visitor parser-generation/ExpressionTemplate.txt -o parser-generation/parser-files
 ```
 
-The parser java source files will be generated in a directory named parser-files.
+Copy the generated `*.java` files into `src/main/java/org/snomed/authoringtemplate/service/generatedlogicalparser/`.
+The antlr4-runtime dependency version must match the generator version (currently 4.13.2 from snomed-parent-bom).
