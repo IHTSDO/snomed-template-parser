@@ -16,6 +16,11 @@
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <!-- ANTLR-generated sources; exclude from duplication metrics on new code -->
+        <sonar.cpd.exclusions>**/generatedlogicalparser/ExpressionTemplateLexer.java,**/generatedlogicalparser/ExpressionTemplateParser.java</sonar.cpd.exclusions>
+    </properties>
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
